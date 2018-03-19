@@ -69,3 +69,19 @@ transactionと呼ばれるブロック内に、DSLの記述を行います
     } get Cities.id
     ....
 ```
+
+## tableを作る
+transaction内部でcreateを呼び出します
+```kotlin
+create (Cities, Users)
+```
+
+## insertする
+カラム名はブラケットの内部の変数名になります  
+```kotlin
+Users.insert {
+  it[id] = "andrey"
+  it[name] = "Andrey"
+  it[cityId] = saintPetersburgId
+}
+```
