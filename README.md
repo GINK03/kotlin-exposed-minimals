@@ -26,3 +26,12 @@ $ ./gradlew jar
 ```console
 $ kotlin -cp ./build/libs/kotlin-exposed-minimals.jar HelloWorldKt
 ```
+
+## Kotlin Exposedプロジェクト
+まだ、mavenなどの管理下になっていないので、[ここ](https://dl.bintray.com/kotlin/exposed/)から最新のjarを確認して、build.gradleに追加します  
+```gradle
+...
+    classpath "org.jetbrains.exposed:exposed:0.10.1" // <- ここのバージョン
+    classpath group: 'org.xerial', name: 'sqlite-jdbc', version: "3.21.0"
+...
+```
