@@ -16,3 +16,13 @@ $ ./gradlew build
 ```console
 $ ./gradlew run
 ```
+
+**stand-alone jar**  
+```console
+$ ./gradlew jar
+```
+
+**stand-alone jarの実行**  
+```console
+$ kotlin -cp ./build/libs/kotlin-exposed-minimals.jar HelloWorldKt
+```
