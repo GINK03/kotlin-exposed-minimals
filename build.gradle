@@ -1,0 +1,47 @@
+buildscript {
+  ext.kotlin_version = '1.2.0'
+  repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://bintray.com" }
+    maven { url "https://dl.bintray.com/kotlin/exposed/" } 
+    google()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath "io.realm:realm-gradle-plugin:5.0.0"
+    classpath 'com.android.tools.build:gradle:3.0.0-rc1'
+    classpath "org.jetbrains.exposed:exposed:0.10.1"
+    classpath group: 'org.xerial', name: 'sqlite-jdbc', version: "3.21.0"
+  }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+
+mainClassName = 'HelloWorldKt'
+
+defaultTasks 'run'
+
+repositories {
+  mavenCentral()
+  jcenter()
+  maven { url "https://bintray.com" }
+  maven { url "https://dl.bintray.com/kotlin/exposed/" } 
+  google()
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  compile 'io.realm:realm-gradle-plugin:5.0.0'
+  compile group: 'io.realm', name: 'realm-android-kotlin-extensions', version: '5.0.0'
+  compile "org.jetbrains.exposed:exposed:0.10.1"
+  runtime group: 'org.xerial', name: 'sqlite-jdbc', version: '3.21.0' 
+  testCompile 'junit:junit:4.11'
+  testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "4.1"
+}
