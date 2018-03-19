@@ -85,3 +85,30 @@ Users.insert {
   it[cityId] = saintPetersburgId
 }
 ```
+
+## updateする
+```kotlin
+Users.update({Users.id eq "alex"}) {
+  it[name] = "Alexey"
+}
+```
+
+## deleteする
+```kotlin
+Users.deleteWhere{Users.name like "%thing"}
+```
+
+## select(get)する
+```kotlin
+Users.select {Users.cityId.isNull()}.forEach {
+   println("${it[Users.name]} lives")
+}
+```
+
+## selectAllする
+```kotlin
+for (city in Cities.selectAll()) {
+  println("${city[Cities.id]}: ${city[Cities.name]}")
+}
+```
+
