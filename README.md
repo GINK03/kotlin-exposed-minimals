@@ -38,7 +38,8 @@ $ kotlin -cp ./build/libs/kotlin-exposed-minimals.jar HelloWorldKt
 
 # Kotlin Exposed
 ## Tableの定義
-Tableというのを継承させた静的なオブジェクトに要素の定義を行います　　
+Tableというのを継承させた静的なオブジェクトに要素の定義を行います　　 
+
 例)  
 ```kotlin
 object Users : Table() {
@@ -110,5 +111,39 @@ Users.select {Users.cityId.isNull()}.forEach {
 for (city in Cities.selectAll()) {
   println("${city[Cities.id]}: ${city[Cities.name]}")
 }
+```
+
+## innerJoinする
+これは、Table定義でどういう依存になっているか示されている必要があるっぽい
+```kotlin
+    (Users innerJoin Cities).slice(Users.name, Users.cityId, Cities.name).
+            select {Cities.name.eq("St. Petersburg") or Users.cityId.isNull()}.forEach {
+        if (it[Users.cityId] != null) {
+            println("${it[Users.name]} lives in ${it[Cities.name]}")
+        }
+        else {
+            println("${it[Users.name]} lives nowhere")
+        }
+    }
+```
+
+## groupByする
+groupByして関数を掛ける必要が無いようでこれは、これで便利（これがあるから生SQL使わなくてもいいという面は多少ある）  
+```kotlin
+    ((Cities innerJoin Users).slice(Cities.name, Users.id.count()).selectAll().groupBy(Cities.name)).forEach {
+        val cityName = it[Cities.name]
+        val userCount = it[Users.id.count()]
+
+        if (userCount > 0) {
+            println("$userCount user(s) live(s) in $cityName")
+        } else {
+            println("Nobody lives in $cityName")
+        }
+    }
+```
+
+## gropする
+```kotlin
+drop (Users, Cities)
 ```
 
