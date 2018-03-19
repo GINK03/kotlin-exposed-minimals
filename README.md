@@ -142,7 +142,7 @@ groupByして関数を掛ける必要が無いようでこれは、これで便�
     }
 ```
 
-## gropする
+## dropする
 ```kotlin
 drop (Users, Cities)
 ```
