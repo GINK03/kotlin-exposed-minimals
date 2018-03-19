@@ -147,3 +147,5 @@ groupByして関数を掛ける必要が無いようでこれは、これで便�
 drop (Users, Cities)
 ```
 
+## 参考
+- [1] [First steps with Kotlin/Exposed](https://medium.com/@OhadShai/first-steps-with-kotlin-exposed-cb361a9bf5ac)
