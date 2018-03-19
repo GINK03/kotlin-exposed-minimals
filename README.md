@@ -35,3 +35,37 @@ $ kotlin -cp ./build/libs/kotlin-exposed-minimals.jar HelloWorldKt
     classpath group: 'org.xerial', name: 'sqlite-jdbc', version: "3.21.0"
 ...
 ```
+
+# Kotlin Exposed
+## Tableの定義
+Tableというのを継承させた静的なオブジェクトに要素の定義を行います　　
+例)  
+```kotlin
+object Users : Table() {
+    val id = varchar("id", 10).primaryKey() // Column<String>
+    val name = varchar("name", length = 50) // Column<String>
+    val cityId = (integer("city_id") references Cities.id).nullable() // Column<Int?>
+}
+```
+
+## Databaseの接続  
+JDBCで接続できるDBなら大抵利用できる  
+```kotlin
+  Database.connect("jdbc:sqlite:./db.sqlite", driver = "org.sqlite.JDBC")
+```
+
+## transaction block
+transactionと呼ばれるブロック内に、DSLの記述を行います  
+```kotlin
+  transaction(transactionIsolation = Connection.TRANSACTION_SERIALIZABLE, repetitionAttempts = 3) {
+    create (Cities, Users)
+
+    val saintPetersburgId = Cities.insert {
+        it[name] = "St. Petersburg"
+    } get Cities.id
+
+    val munichId = Cities.insert {
+        it[name] = "Munich"
+    } get Cities.id
+    ....
+```
